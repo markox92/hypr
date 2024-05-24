@@ -72,7 +72,7 @@ function copy() {
     sleep 1
 
     printf "Configure Code Flags......."
-    yes | cp -rf "$1/dotfiles/code-flags.conf" "$HOME/.config/"
+    yes | cp -rf "$1/dotfiles/code-flags.conf" "$HOME/.config/code-flags.conf"
     echo -e "\e[36m [ OK ]\e[0m"
     sleep 1
 
