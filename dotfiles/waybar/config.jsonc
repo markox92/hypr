@@ -1,0 +1,217 @@
+{
+    "position": "top",
+    "layer": "top",
+    "output": "DP-2",
+    "height": 14,
+    "margin-top": 0,
+    "margin-bottom": 0,
+    "margin-left": 0,
+    "margin-right": 0,
+    "modules-left": [
+        "custom/launcher",
+        "custom/home",
+        "custom/playerctl",
+        "temperature",
+        "custom/gpu",
+        "hyprland/workspaces"
+    ],
+    "modules-center": [
+        "hyprland/window"
+    ],
+    "modules-right": [
+        "custom/weather",
+        "tray",
+        "custom/randwall",
+        "custom/external-ip",
+        //"network",
+        "pulseaudio",
+        "clock"
+    ],
+    // Modules configuration
+    "hyprland/window": {
+        
+            "max-length": 80,
+        "escape": true
+        
+    },
+    "clock": {
+        "format": "<span foreground='#6D8895' font='14.5' rise='-1000'> </span>{:%H:%M}",
+        "format-alt": "<span foreground='#6D8895' font='14.5' rise='-1000'> </span>{:%A, %B ,%Y}",
+        "tooltip-format": "<tt>{calendar}</tt>",
+        "calendar": {
+            "mode": "month",
+            "mode-mon-col": 3,
+            "on-scroll": 1,
+            "on-click-right": "mode",
+            "format": {
+                "months": "<span color='#ffead3'><b>{}</b></span>",
+                "days": "<span color='#ffffff'><b>{}</b></span>",
+                "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+                "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+                "today": "<span color='#66FBFF'><b><u>{}</u></b></span>"
+            }
+        },
+        "actions": {
+            "on-click-right": "mode",
+            "on-click-forward": "tz_up",
+            "on-click-backward": "tz_down",
+            "on-scroll-up": "shift_up",
+            "on-scroll-down": "shift_down"
+        }
+    },
+    "hyprland/workspaces": {
+        "active-only": false,
+        "all-outputs": true,
+        "disable-scroll": false,
+        "on-scroll-up": "hyprctl dispatch workspace -1",
+        "on-scroll-down": "hyprctl dispatch workspace +1",
+        "format": "{icon}",
+        "on-click": "activate",
+        "format-icons": {
+            //			"1": "一",
+            //			"2": "二",
+            //			"3": "三",
+            //			"4": "四",
+            //			"5": "五",
+            "urgent": "",
+            "active": "",
+            "default": "",
+            "sort-by-number": true
+        }
+    },
+    "custom/playerctl": {
+        "format": "{}",
+        "interval": 1,
+        "max-length": 20,
+        "exec": "~/.config/waybar/scripts/playerctl.py",
+        "on-click": "playerctl play-pause",
+        "return-type": "json",
+        "escape": true
+    },
+     "custom/weather" : {
+        //shows the current weather and forecast
+        "tooltip" : true,
+        "format" : "{}",
+        "interval" : 30,
+        "exec" : "~/.config/waybar/scripts/waybar-wttr.py",
+        "return-type" : "json"
+    },
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}  {capacity}%",
+        "format-charging": "{capacity}% ",
+        "format-plugged": "{capacity}% ",
+        "format-alt": "{icon} {time}",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
+    },
+    "temperature": {
+        "thermal-zone":2,
+        "format": " {temperatureC}°C",
+        "critical-threshold": 80,
+        "tooltip" : true,
+        "format-critical": " {temperatureC}°C",
+        "interval": 5,
+        "tooltip-format": "CPU {temperatureC}°C"
+    },
+    "custom/gpu": {
+        "exec": "nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader,nounits",
+        "format": " {}°C",
+        "tooltip" : true,
+        "critical-threshold": 80,
+        "format-critical": " {}°C",
+        "interval": 5,
+        "tooltip-format": "GPU {}°C"
+    },
+    "custom/external-ip": {
+        "exec": "curl -s ifconfig.me"
+      },
+    "network": {
+        // "interface": "wlp2*", // (Optional) To force the use of this interface
+        
+        "format-wifi": " {signalStrength}%",
+        "format-ethernet": "󰈀 {ipaddr}",
+        "tooltip-format": "{essid} - {ifname} via {gwaddr}",
+        "format-linked": "{ifname} (No IP)",
+        "format-disconnected": "Disconnected ⚠",
+        "format-alt": "{ifname}:{essid} {ipaddr}/{cidr}"
+    },
+    "tray": {
+        "icon-size": 16,
+        "spacing": 5
+    },
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "{icon} {percent}%",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+        ]
+        //	"on-scroll-up":,
+        //	"on-scroll-down":,
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "tooltip": false,
+        "format-muted": " Muted",
+        "on-click": "pamixer -t",
+        "on-scroll-up": "pamixer -i 5",
+        "on-scroll-down": "pamixer -d 5",
+        "scroll-step": 5,
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": [
+                "",
+                "",
+                ""
+            ]
+        }
+    },
+    "custom/launcher": {
+        "format": "",
+        "on-click": "bash $HOME/.config/rofi/launchers/launcher.sh",
+        "on-click-right": "bash $HOME/.config/rofi/powermenu/powermenu.sh"
+    },
+    "custom/home": {
+        "format": "<span foreground='#ffffff' font='10' rise='-1000'></span> Home",
+        "on-click": "thunar /home",
+        "on-click-right": "thunar /home"
+    },
+    "custom/wf-recorder": {
+        "format": "{}",
+        "interval": "once",
+        "exec": "echo ''",
+        "tooltip": "false",
+        "exec-if": "pgrep 'wf-recorder'",
+        "on-click": "exec ./scripts/wlrecord.sh",
+        "signal": 8
+    },
+    "custom/hyprpicker": {
+        "format": "󰈋",
+        "on-click": "hyprpicker -a -f hex",
+        "on-click-right": "hyprpicker -a -f rgb"
+    }
+}
