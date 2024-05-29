@@ -45,8 +45,8 @@ function copy() {
     printf "Configure Waybar..........."
     mkdir -p "$HOME/.config/waybar"
     yes | cp -rf $1/dotfiles/waybar/* "$HOME/.config/waybar/"
-    chmod +x "$HOME/.config/waybar/scripts/mediaplayer.py" "$HOME/.config/waybar/scripts/wlrecord.sh"
-    chmod +x "$HOME/.config/waybar/scripts/playerctl/playerctl.sh"
+    chmod +x "$HOME/.config/waybar/scripts/*.py" 
+    chmod +x "$HOME/.config/waybar/scripts/*.sh" 
     echo -e "\e[36m [ OK ]\e[0m"
     sleep 1
 
